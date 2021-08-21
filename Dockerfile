@@ -24,6 +24,10 @@ EXPOSE 5000
 EXPOSE 9050
 EXPOSE 9150
 
+RUN mkdir /warden && ln -s /warden ~/warden
+
+VOLUME /warden
+
 ENTRYPOINT ["sh","/build/docker_launcher.sh"]
 CMD [""]
 
