@@ -114,7 +114,7 @@ class Specter():
                 # fees are only relevant for spends
                 if tx["category"] == "send":
                     # save a copy, as the original is still needed if it gets updated
-                    fee = tx["fee"]
+                    fee = tx.get("fee", 0)
 
                     # accounting for CoinJoins is unique because there's no realized fee for re-mixes
                     if tx["amount"] == fee:
@@ -123,7 +123,7 @@ class Specter():
                     tx["amount"] -= fee
 
                     # ensure positivity for WARden (this needs to happen last)
-                    tx["fee"] = abs(tx["fee"])
+                    tx["fee"] = abs(tx.get("fee", 0))
 
             # Save to pickle file
             pickle_it(action='save', filename='specter_txs.pkl', data=specter_data)
